@@ -115,6 +115,95 @@ func echo(w http.ResponseWriter, r *http.Request) {
 
 - [go playground](https://go.dev/play/)
 
+- 包和文件的关系
+	- pacakge -> file.go
+
+- 声明
+	- 5种主要的声明：```var, const, type, func```
+
+- 变量声明
+
+```go
+var name type = expression
+```
+
+```go
+var name type
+name = expression
+```
+
+> 注：短变量声明的方式有一些坑
+
+```go
+name := expression
+```
+
+- 指针
+	- 指针里保存的变量的地址
+	- 可以通过指针修改变量
+	- & : 取变量地址
+	- \* ： 取值（相当于变更的别名）
+
+- 另外一个命令行参数flag
+
+```go
+package main
+
+import (
+	"flag"
+	"fmt"
+	"strings"
+)
+
+var n = flag.Bool("n", false, "omit trailing newline")
+var sep = flag.String("s", " ", "separator")
+
+func main() {
+	flag.Parse()
+	fmt.Print(strings.Join(flag.Args(), *sep))
+	if !*n {
+		fmt.Println()
+	}
+}
+```
+
+- 有三个操作符返回多值
+
+```go
+v, ok = m[key] 	// map lookup
+v, ok = x.(T)	// type assertion
+v, ok = <-ch	// channel receive
+```
+
+- HTTP的方法
+	- GET
+	- POST
+	- PUT
+	- DELETE
+
+- pull 或 push
+
+![pullOrPush](pull_or_push.jpeg)
+
+- iota
+
+> A const declaration may use the constant generator iota, which is used to create a sequence of related values without spelling out each one explicitly. 
+
+
+```go
+const (
+    _ = 1 << (10 * iota)
+    KiB // 1024
+    MiB // 1048576
+    GiB // 1073741824
+    TiB // 1099511627776
+    PiB // 1125899906842624
+    EiB // 1152921504606846976
+    ZiB // 1180591620717411303424
+    YiB // 1208925819614629174706176
+)
+```
+
 ---
 
 - 参考链接：[Effective Go](https://go.dev/doc/effective_go)
