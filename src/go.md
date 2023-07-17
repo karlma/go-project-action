@@ -204,6 +204,35 @@ const (
 )
 ```
 
+- 3种类型需要用make初始化
+	- slice
+	- map
+	- chan
+
+- range
+	- 返回一个值的时候是index或key(map的情况)
+	- 返回两个值的时候，第一个值是index或key，第二值是value
+	- **range chan时只返回一个值**，chan被关闭时，会直接跳出循环
+
+- ok
+	- 在取map值时，可以用ok判断是否存在；因为如果直接取在map中不存在的key的值，会返回一个零值（如false,空字符串等）
+	- 类型断言时，用ok判断类型转变是否成功；因为如果类型断言不成功，也没有ok的话，程序会crash
+	- 直接读取chan时，返回的第二个参数ok，表示读取的值是不是有效的值；如果chan已经被发送方close了，ok为false，读到的值为是零值（无效的值）
+
+- defer
+- panic & recover
+
+```go
+func Parse(input string) (s *Syntax, err error) {
+	defer func() {
+		if p := recover(); p != nil {
+			err = fmt.Errorf("internal error: %v", p)
+		}
+	}()
+	// ...parser...
+}
+```
+
 ---
 
 - 参考链接：[Effective Go](https://go.dev/doc/effective_go)
